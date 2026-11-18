@@ -1,0 +1,1401 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Lemub Group Pty Ltd | Asset Maintenance, Water & Compliance</title>
+  <meta name="description" content="Lemub Group maintains and optimises facility assets, tests and treats water, and advises on compliance and risk for dairy, agriculture, and industry.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --navy: #0F172A;
+      --navy-mid: #16223B;
+      --slate: #262C3A;
+      --deep: #153969;
+      --accent: #2563EB;
+      --steel: #7E96B5;
+      --pale: #C7D7EB;
+      --mist: #F5F7FA;
+      --bg: var(--mist);
+      --fg: var(--slate);
+      --muted: #526075;
+      --line: #DCE2EC;
+      --surface: #FFFFFF;
+      --surface-alt: #EDF2F8;
+      --link: var(--deep);
+      --display: "Archivo Black", "Arial Black", Impact, sans-serif;
+      --body: Inter, system-ui, -apple-system, "Segoe UI", Arial, sans-serif;
+      color-scheme: light;
+      box-sizing: border-box;
+      padding-top: env(safe-area-inset-top, 0px);
+      padding-bottom: env(safe-area-inset-bottom, 0px);
+    }
+
+    :root[data-theme="dark"] {
+      color-scheme: dark;
+      --bg: #0B111E;
+      --fg: #E6ECF4;
+      --muted: #9BAEC8;
+      --line: #23314A;
+      --surface: #121B2E;
+      --surface-alt: #18243D;
+      --link: var(--pale);
+    }
+
+    *,
+    *::before,
+    *::after {
+      box-sizing: inherit;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      scroll-padding-top: calc(5rem + env(safe-area-inset-top, 0px));
+    }
+
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--fg);
+      font: 400 1.05rem/1.65 var(--body);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    h1,
+    h2,
+    h3 {
+      font-family: var(--display);
+      font-weight: 400;
+      line-height: 1.1;
+      margin: 0;
+      text-wrap: balance;
+    }
+
+    p {
+      margin: 0;
+      text-wrap: pretty;
+    }
+
+    a {
+      color: var(--link);
+    }
+
+    img {
+      display: block;
+      max-width: 100%;
+    }
+
+    :focus-visible {
+      outline: 3px solid var(--steel);
+      outline-offset: 3px;
+      border-radius: 3px;
+    }
+
+    .wrap {
+      width: min(100% - 2.5rem, 74rem);
+      margin-inline: auto;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: .5rem;
+      font-size: .8rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .1em;
+      color: var(--deep);
+      margin-bottom: .85rem;
+    }
+
+    [data-theme="dark"] .eyebrow {
+      color: var(--pale);
+    }
+
+    .eyebrow::before {
+      content: "";
+      width: 1.25rem;
+      height: 2px;
+      background: currentColor;
+    }
+
+    .skip {
+      position: absolute;
+      inset-inline-start: 1rem;
+      inset-block-start: -4rem;
+      background: var(--pale);
+      color: var(--navy);
+      padding: .6rem 1rem;
+      z-index: 100;
+      font-weight: 600;
+    }
+
+    .skip:focus {
+      inset-block-start: 1rem;
+    }
+
+    /* Header */
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0 0 auto;
+      height: env(safe-area-inset-top, 0px);
+      background: var(--navy);
+      z-index: 40;
+    }
+
+    .site-header {
+      position: sticky;
+      top: env(safe-area-inset-top, 0px);
+      z-index: 40;
+      background: rgba(15, 23, 42, 0.96);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid rgba(126, 150, 181, 0.2);
+      color: #fff;
+    }
+
+    .header-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 4.25rem;
+      gap: .5rem;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: .65rem;
+      color: #fff;
+      text-decoration: none;
+      font: 400 1.05rem var(--display);
+      letter-spacing: .01em;
+      min-width: 0;
+    }
+
+    @media (min-width: 24rem) {
+      .logo {
+        font-size: 1.15rem;
+        gap: .75rem;
+      }
+    }
+
+    .mark {
+      display: grid;
+      place-items: center;
+      flex-shrink: 0;
+      width: 2.1rem;
+      height: 2.1rem;
+      background: var(--pale);
+      color: var(--navy);
+      font: 400 1.15rem var(--display);
+      border-radius: 3px;
+    }
+
+    .logo span:last-child {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .logo small {
+      font: 500 .72rem var(--body);
+      color: var(--steel);
+      display: block;
+      margin-top: -.15rem;
+      letter-spacing: .03em;
+    }
+
+    .hdr-actions {
+      display: flex;
+      align-items: center;
+      gap: .5rem;
+      flex-shrink: 0;
+    }
+
+    .theme-toggle,
+    .menu-button {
+      background: rgba(255, 255, 255, 0.06);
+      color: #fff;
+      border: 1px solid rgba(126, 150, 181, 0.35);
+      height: 2.5rem;
+      border-radius: .4rem;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      transition: background .2s ease, border-color .2s ease;
+    }
+
+    .theme-toggle {
+      width: 2.5rem;
+      padding: 0;
+    }
+
+    .menu-button {
+      gap: .45rem;
+      padding: 0 .85rem;
+      font: 600 .9rem var(--body);
+    }
+
+    .theme-toggle:hover,
+    .menu-button:hover,
+    .menu-button[aria-expanded="true"] {
+      background: var(--deep);
+      border-color: var(--pale);
+    }
+
+    .theme-toggle svg,
+    .menu-button svg {
+      width: 1.15rem;
+      height: 1.15rem;
+      flex-shrink: 0;
+    }
+
+    .theme-toggle .moon,
+    .menu-button .icon-close,
+    .menu-button[aria-expanded="true"] .icon-open {
+      display: none;
+    }
+
+    [data-theme="dark"] .theme-toggle .sun {
+      display: none;
+    }
+
+    [data-theme="dark"] .theme-toggle .moon,
+    .menu-button[aria-expanded="true"] .icon-close {
+      display: block;
+    }
+
+    /* Mobile Dropdown Drawer */
+    .site-menu {
+      list-style: none;
+      margin: 0;
+      padding: .75rem 1.25rem 1.25rem;
+      background: var(--navy-mid);
+      border-top: 1px solid rgba(126, 150, 181, 0.18);
+      border-bottom: 1px solid rgba(126, 150, 181, 0.25);
+      box-shadow: 0 20px 30px rgba(0, 0, 0, 0.45);
+      position: absolute;
+      inset-inline: 0;
+      top: 100%;
+      display: grid;
+      gap: .35rem;
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(-8px);
+      transition: opacity .2s ease, transform .2s ease, visibility .2s;
+    }
+
+    .site-header.is-open .site-menu {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0);
+    }
+
+    .site-menu a {
+      display: flex;
+      align-items: center;
+      padding: .85rem 1rem;
+      color: #fff;
+      text-decoration: none;
+      border-radius: .4rem;
+      font-size: 1rem;
+      font-weight: 500;
+      transition: background .15s ease;
+    }
+
+    .site-menu a:hover {
+      background: rgba(255, 255, 255, 0.08);
+    }
+
+    .site-menu a[aria-current="true"] {
+      background: var(--deep);
+      box-shadow: inset 3px 0 0 var(--pale);
+    }
+
+    .site-menu .cta {
+      background: var(--pale);
+      color: var(--navy);
+      font-weight: 700;
+      margin-top: .5rem;
+      justify-content: center;
+    }
+
+    .site-menu .cta:hover {
+      background: #fff;
+    }
+
+    /* Desktop Navbar */
+    @media (min-width: 52rem) {
+      .header-inner {
+        height: 4.75rem;
+      }
+
+      .menu-button {
+        display: none;
+      }
+
+      .site-menu {
+        position: static;
+        display: flex;
+        align-items: center;
+        gap: .25rem;
+        padding: 0;
+        background: transparent;
+        border: 0;
+        box-shadow: none;
+        opacity: 1;
+        visibility: visible;
+        transform: none;
+      }
+
+      .site-menu a {
+        padding: .5rem .85rem;
+        font-size: .95rem;
+      }
+
+      .site-menu a[aria-current="true"] {
+        background: transparent;
+        box-shadow: inset 0 -3px 0 var(--pale);
+        border-radius: 0;
+      }
+
+      .site-menu .cta {
+        margin: 0 0 0 .75rem;
+        padding: .55rem 1.15rem;
+      }
+    }
+
+    /* Hero */
+    .hero {
+      background-color: var(--navy);
+      background-image:
+        linear-gradient(105deg, rgba(15, 23, 42, 0.94) 0%, rgba(15, 23, 42, 0.82) 55%, rgba(21, 57, 105, 0.78) 100%),
+        linear-gradient(rgba(126, 150, 181, 0.08) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(126, 150, 181, 0.08) 1px, transparent 1px),
+        url('https://images.unsplash.com/photo-1581092918056-0c4c3acd3789?auto=format&fit=crop&w=1800&q=80');
+      background-size: 100% 100%, 40px 40px, 40px 40px, cover;
+      background-position: center;
+      color: #fff;
+      position: relative;
+      overflow: hidden;
+      isolation: isolate;
+      border-bottom: 1px solid rgba(126, 150, 181, 0.25);
+    }
+
+    .hero .wrap {
+      display: grid;
+      gap: 3rem;
+      padding-block: clamp(4.25rem, 9vw, 7.25rem);
+      align-items: end;
+    }
+
+    @media (min-width: 56rem) {
+      .hero .wrap {
+        grid-template-columns: 1.45fr 1fr;
+      }
+    }
+
+    .hero .eyebrow {
+      color: var(--pale);
+    }
+
+    .hero h1 {
+      font-size: clamp(2.15rem, 4.6vw, 3.65rem);
+      max-width: 19ch;
+      letter-spacing: -.01em;
+    }
+
+    .hero p {
+      color: var(--pale);
+      font-size: 1.15rem;
+      max-width: 37rem;
+      margin-top: 1.4rem;
+      line-height: 1.65;
+    }
+
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: .9rem;
+      margin-top: 2.25rem;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: .5rem;
+      padding: .85rem 1.55rem;
+      border-radius: 3px;
+      font-weight: 600;
+      text-decoration: none;
+      border: 2px solid transparent;
+      cursor: pointer;
+      font-family: var(--body);
+      font-size: .98rem;
+      transition: transform .15s ease, background .2s ease, border-color .2s ease;
+    }
+
+    .btn:active {
+      transform: translateY(1px);
+    }
+
+    .btn-primary {
+      background: var(--pale);
+      color: var(--navy);
+    }
+
+    .btn-primary:hover {
+      background: #fff;
+    }
+
+    .btn-ghost {
+      border-color: rgba(199, 215, 235, 0.45);
+      color: #fff;
+      background: rgba(15, 23, 42, 0.45);
+      backdrop-filter: blur(4px);
+    }
+
+    .btn-ghost:hover {
+      background: var(--deep);
+      border-color: var(--pale);
+    }
+
+    .facts {
+      margin: 0;
+      background: rgba(15, 23, 42, 0.82);
+      backdrop-filter: blur(8px);
+      border: 1px solid rgba(126, 150, 181, 0.3);
+      border-inline-start: 4px solid var(--pale);
+      border-radius: 4px;
+      padding: 1.65rem;
+      display: grid;
+      gap: 1.25rem;
+    }
+
+    .facts div + div {
+      border-top: 1px solid rgba(126, 150, 181, 0.2);
+      padding-top: 1.1rem;
+    }
+
+    .facts dt {
+      color: var(--steel);
+      font-size: .78rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .08em;
+    }
+
+    .facts dd {
+      margin: .25rem 0 0;
+      color: #fff;
+      font-weight: 500;
+      font-size: 1.02rem;
+    }
+
+    /* Sections */
+    section {
+      padding-block: clamp(4rem, 8vw, 6.5rem);
+    }
+
+    h2 {
+      font-size: clamp(1.85rem, 3.5vw, 2.65rem);
+    }
+
+    .two {
+      display: grid;
+      gap: 2.25rem;
+    }
+
+    @media (min-width: 56rem) {
+      .two {
+        grid-template-columns: .95fr 1.25fr;
+        gap: 4.5rem;
+      }
+    }
+
+    .two p + p {
+      margin-top: 1.1rem;
+    }
+
+    /* About Visual & Pillars */
+    .about-visual {
+      margin-top: 1.75rem;
+      border-radius: 6px;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      background: var(--surface);
+      box-shadow: 0 12px 28px rgba(15, 23, 42, 0.08);
+    }
+
+    .about-visual img {
+      width: 100%;
+      aspect-ratio: 16 / 10;
+      object-fit: cover;
+    }
+
+    .about-visual figcaption {
+      padding: .7rem 1rem;
+      font-size: .82rem;
+      color: var(--muted);
+      background: var(--surface);
+      border-top: 1px solid var(--line);
+    }
+
+    .pillars {
+      display: grid;
+      gap: 1rem;
+      margin-top: 2rem;
+      padding-top: 2rem;
+      border-top: 1px solid var(--line);
+    }
+
+    @media (min-width: 38rem) {
+      .pillars {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+
+    .pillar {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: 4px;
+      padding: 1.15rem;
+    }
+
+    .pillar strong {
+      display: block;
+      font-size: .95rem;
+      color: var(--deep);
+      margin-bottom: .25rem;
+    }
+
+    [data-theme="dark"] .pillar strong {
+      color: var(--pale);
+    }
+
+    .pillar span {
+      font-size: .88rem;
+      color: var(--muted);
+      line-height: 1.45;
+      display: block;
+    }
+
+    /* Services Accordion List */
+    .services {
+      background: var(--surface);
+      border-block: 1px solid var(--line);
+    }
+
+    .section-intro {
+      color: var(--muted);
+      margin-top: 1rem;
+      max-width: 32ch;
+    }
+
+    .service-accordion {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      border-top: 1px solid var(--line);
+    }
+
+    .service-item {
+      border-bottom: 1px solid var(--line);
+    }
+
+    .service-toggle {
+      width: 100%;
+      background: transparent;
+      border: none;
+      padding: 1.25rem 0.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      text-align: left;
+      cursor: pointer;
+      color: var(--fg);
+      font-family: var(--body);
+      font-size: 1.1rem;
+      font-weight: 600;
+      transition: color .15s ease;
+    }
+
+    .service-toggle:hover {
+      color: var(--deep);
+    }
+
+    [data-theme="dark"] .service-toggle:hover {
+      color: var(--pale);
+    }
+
+    .service-title-wrap {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .service-num {
+      font-size: .8rem;
+      font-weight: 700;
+      letter-spacing: .08em;
+      color: var(--steel);
+    }
+
+    .service-icon {
+      width: 1.5rem;
+      height: 1.5rem;
+      flex-shrink: 0;
+      border-radius: 50%;
+      background: var(--surface-alt);
+      border: 1px solid var(--line);
+      display: grid;
+      place-items: center;
+      transition: transform .25s ease, background .2s ease;
+    }
+
+    .service-toggle[aria-expanded="true"] .service-icon {
+      transform: rotate(180deg);
+      background: var(--deep);
+      border-color: var(--deep);
+      color: #fff;
+    }
+
+    [data-theme="dark"] .service-toggle[aria-expanded="true"] .service-icon {
+      background: var(--pale);
+      border-color: var(--pale);
+      color: var(--navy);
+    }
+
+    .service-icon svg {
+      width: .85rem;
+      height: .85rem;
+    }
+
+    .service-content {
+      display: grid;
+      grid-template-rows: 0fr;
+      transition: grid-template-rows .25s ease;
+    }
+
+    .service-content-inner {
+      overflow: hidden;
+    }
+
+    .service-detail {
+      padding: 0 0.5rem 1.5rem 2.25rem;
+      display: grid;
+      gap: 1rem;
+    }
+
+    @media (min-width: 36rem) {
+      .service-detail {
+        grid-template-columns: 9.5rem 1fr;
+        align-items: start;
+        gap: 1.25rem;
+      }
+    }
+
+    .service-detail img {
+      width: 100%;
+      aspect-ratio: 4 / 3;
+      object-fit: cover;
+      border-radius: 4px;
+      border: 1px solid var(--line);
+    }
+
+    .service-detail p {
+      font-size: .96rem;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    /* Responsibility */
+    .responsibility {
+      background: linear-gradient(135deg, var(--deep) 0%, var(--navy) 100%);
+      color: #fff;
+    }
+
+    .responsibility .eyebrow {
+      color: var(--pale);
+    }
+
+    .responsibility-grid {
+      display: grid;
+      gap: 2rem;
+      margin-top: 2rem;
+    }
+
+    @media (min-width: 48rem) {
+      .responsibility-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    .resp-card {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(199, 215, 235, 0.22);
+      border-radius: 6px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .resp-card img {
+      width: 100%;
+      height: 13rem;
+      object-fit: cover;
+      border-bottom: 1px solid rgba(199, 215, 235, 0.18);
+    }
+
+    .resp-body {
+      padding: 1.65rem;
+    }
+
+    .resp-card h3 {
+      font-family: var(--body);
+      font-weight: 700;
+      font-size: 1.15rem;
+      color: #fff;
+      margin-bottom: .5rem;
+    }
+
+    .resp-card p {
+      color: var(--pale);
+      font-size: 1rem;
+    }
+
+    /* Contact & Form */
+    .contact {
+      display: grid;
+      gap: 2.5rem;
+    }
+
+    @media (min-width: 56rem) {
+      .contact {
+        grid-template-columns: .9fr 1.1fr;
+        gap: 4.5rem;
+      }
+    }
+
+    .contact-lead {
+      color: var(--muted);
+      margin-top: 1rem;
+    }
+
+    .direct-box {
+      margin-top: 2rem;
+      padding: 1.25rem;
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: 4px;
+    }
+
+    .direct-box span {
+      display: block;
+      font-size: .8rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .06em;
+      color: var(--muted);
+      margin-bottom: .35rem;
+    }
+
+    .copy-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: .75rem;
+      flex-wrap: wrap;
+    }
+
+    .copy-row code {
+      font-family: var(--body);
+      font-weight: 600;
+      font-size: .98rem;
+      color: var(--fg);
+    }
+
+    .btn-small {
+      padding: .4rem .8rem;
+      font-size: .82rem;
+      border-radius: 3px;
+      border: 1px solid var(--line);
+      background: var(--surface-alt);
+      color: var(--fg);
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    .btn-small:hover {
+      border-color: var(--steel);
+    }
+
+    form {
+      display: grid;
+      gap: 1.15rem;
+      background: var(--surface);
+      padding: clamp(1.5rem, 3vw, 2.25rem);
+      border: 1px solid var(--line);
+      border-radius: 6px;
+    }
+
+    label {
+      display: grid;
+      gap: .4rem;
+      font-weight: 600;
+      font-size: .92rem;
+    }
+
+    input,
+    select,
+    textarea {
+      font: inherit;
+      color: var(--fg);
+      background: var(--bg);
+      border: 1px solid var(--line);
+      border-radius: .4rem;
+      padding: .75rem .9rem;
+      width: 100%;
+      transition: border-color .15s ease, background .15s ease;
+    }
+
+    input:focus,
+    select:focus,
+    textarea:focus {
+      outline: none;
+      border-color: var(--deep);
+      background: var(--surface);
+    }
+
+    [data-theme="dark"] input:focus,
+    [data-theme="dark"] select:focus,
+    [data-theme="dark"] textarea:focus {
+      border-color: var(--pale);
+    }
+
+    textarea {
+      min-height: 8rem;
+      resize: vertical;
+    }
+
+    form .btn {
+      justify-self: start;
+      background: var(--deep);
+      color: #fff;
+    }
+
+    form .btn:hover {
+      background: var(--navy);
+    }
+
+    [data-theme="dark"] form .btn {
+      background: var(--pale);
+      color: var(--navy);
+    }
+
+    [data-theme="dark"] form .btn:hover {
+      background: #fff;
+    }
+
+    .note {
+      font-size: .86rem;
+      color: var(--muted);
+    }
+
+    /* Footer */
+    footer {
+      background: var(--navy);
+      color: var(--pale);
+      padding-block: 2.25rem;
+      font-size: .92rem;
+      border-top: 1px solid rgba(126, 150, 181, 0.2);
+    }
+
+    footer .wrap {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+
+    footer a {
+      color: var(--pale);
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    footer a:hover {
+      color: #fff;
+      text-decoration: underline;
+    }
+
+    /* Accessibility & Preferences */
+    @media (prefers-reduced-motion: reduce) {
+      html {
+        scroll-behavior: auto;
+      }
+
+      .btn,
+      .site-menu,
+      .service-content {
+        transition: none;
+      }
+    }
+
+    @media (forced-colors: active) {
+      .site-menu a[aria-current="true"] {
+        border-inline-start: 3px solid;
+      }
+    }
+  </style>
+</head>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+
+  <header class="site-header" id="top">
+    <div class="wrap header-inner">
+      <a class="logo" href="#top" aria-label="Lemub Group Pty Ltd, home">
+        <span class="mark" aria-hidden="true">L</span>
+        <span>Lemub Group<small>Pty Ltd</small></span>
+      </a>
+      <div class="hdr-actions">
+        <button class="theme-toggle" type="button" id="theme-toggle" aria-label="Switch to dark mode" aria-pressed="false">
+          <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+            <circle cx="12" cy="12" r="4"/>
+            <path d="M12 2v2M12 20v2M2 12h2M20 12h2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/>
+          </svg>
+          <svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8Z"/>
+          </svg>
+        </button>
+        <nav aria-label="Primary">
+          <button class="menu-button" type="button" id="menu-toggle" aria-expanded="false" aria-controls="site-menu">
+            <svg class="icon-open" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+              <path d="M4 7h16M4 12h16M4 17h16"/>
+            </svg>
+            <svg class="icon-close" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+              <path d="M6 6l12 12M18 6L6 18"/>
+            </svg>
+            <span>Menu</span>
+          </button>
+          <ul id="site-menu" class="site-menu">
+            <li><a href="#about">About</a></li>
+            <li><a href="#services">What we do</a></li>
+            <li><a href="#responsibility">Responsibility</a></li>
+            <li><a class="cta" href="#contact">Contact us</a></li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <main id="main">
+    <div class="hero">
+      <div class="wrap">
+        <div>
+          <span class="eyebrow">Industrial & Agricultural Operations</span>
+          <h1>Maintenance, calibration and water services for industry and farms.</h1>
+          <p>Lemub Group Pty Ltd maintains and optimises equipment in dairy manufacturing and water treatment facilities, helping businesses reduce the water and energy they use.</p>
+          <div class="actions">
+            <a class="btn btn-primary" href="#contact">Request an enquiry</a>
+            <a class="btn btn-ghost" href="#services">Explore services</a>
+          </div>
+        </div>
+        <dl class="facts">
+          <div>
+            <dt>Core Industries</dt>
+            <dd>Dairy manufacturing, water treatment & agriculture</dd>
+          </div>
+          <div>
+            <dt>Technical Disciplines</dt>
+            <dd>Specialist trades, engineering & applied science</dd>
+          </div>
+          <div>
+            <dt>Operational Scope</dt>
+            <dd>Preventative maintenance, advisory, compliance & risk</dd>
+          </div>
+        </dl>
+      </div>
+    </div>
+
+    <section id="about">
+      <div class="wrap two">
+        <div>
+          <span class="eyebrow">Who We Are</span>
+          <h2>About Lemub Group</h2>
+          <figure class="about-visual">
+            <img src="https://images.unsplash.com/photo-1504328345606-18bbc8c9d7d1?auto=format&fit=crop&w=900&q=80" alt="Stainless steel industrial piping and pressure gauges inside a processing plant" loading="lazy">
+            <figcaption>Precision instrumentation and process infrastructure maintenance.</figcaption>
+          </figure>
+        </div>
+        <div>
+          <p>Lemub Group Pty Ltd is an innovative company involved in asset maintenance and optimisation, business advisory, and compliance and risk management.</p>
+          <p>We specialise in the trades, engineering and scientific capabilities that keep critical facilities—such as dairy manufacturing plants and water treatment infrastructure—maintained, calibrated, and operating at peak efficiency while reducing water and energy consumption.</p>
+          <div class="pillars">
+            <div class="pillar">
+              <strong>Asset Reliability</strong>
+              <span>Minimising downtime through precision calibration and upkeep.</span>
+            </div>
+            <div class="pillar">
+              <strong>Resource Efficiency</strong>
+              <span>Targeted audits to lower facility water and energy footprints.</span>
+            </div>
+            <div class="pillar">
+              <strong>Compliance & Risk</strong>
+              <span>Practical advisory aligned with industry and safety standards.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="services" class="services">
+      <div class="wrap two">
+        <div>
+          <span class="eyebrow">Capabilities</span>
+          <h2>What we do</h2>
+          <p class="section-intro">Click any service below to explore our technical scope, methodologies, and operational deliverables.</p>
+        </div>
+        <ul class="service-accordion">
+          <li class="service-item">
+            <button class="service-toggle" aria-expanded="false">
+              <span class="service-title-wrap">
+                <span class="service-num">01</span>
+                <span>Asset and equipment maintenance</span>
+              </span>
+              <span class="service-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
+              </span>
+            </button>
+            <div class="service-content">
+              <div class="service-content-inner">
+                <div class="service-detail">
+                  <img src="https://images.unsplash.com/photo-1581092160562-40aa08e78837?auto=format&fit=crop&w=500&q=80" alt="Technician inspecting industrial machinery" loading="lazy">
+                  <p>We provide scheduled preventative maintenance, emergency diagnostics, and mechanical optimisation for heavy processing machinery. This includes servicing dairy pasteurisers, pumps, valves, and automated production lines to eliminate unexpected downtime and extend operational lifespans.</p>
+                </div>
+              </div>
+            </div>
+          </li>
+          <li class="service-item">
+            <button class="service-toggle" aria-expanded="false">
+              <span class="service-title-wrap">
+                <span class="service-num">02</span>
+                <span>Equipment calibration</span>
+              </span>
+              <span class="service-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
+              </span>
+            </button>
+            <div class="service-content">
+              <div class="service-content-inner">
+                <div class="service-detail">
+                  <img src="https://images.unsplash.com/photo-1581092335397-9583eb92d232?auto=format&fit=crop&w=500&q=80" alt="Industrial pressure and temperature calibration gauge" loading="lazy">
+                  <p>Precision calibration for industrial sensors, temperature probes, pressure transducers, and flow meters. Ensuring your plant instrumentation complies with strict regulatory standards and maintains absolute batch-to-batch measurement accuracy.</p>
+                </div>
+              </div>
+            </div>
+          </li>
+          <li class="service-item">
+            <button class="service-toggle" aria-expanded="false">
+              <span class="service-title-wrap">
+                <span class="service-num">03</span>
+                <span>Water testing</span>
+              </span>
+              <span class="service-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
+              </span>
+            </button>
+            <div class="service-content">
+              <div class="service-content-inner">
+                <div class="service-detail">
+                  <img src="https://images.unsplash.com/photo-1532187863486-abf9dbad1b69?auto=format&fit=crop&w=500&q=80" alt="Laboratory technician testing water samples" loading="lazy">
+                  <p>Comprehensive physical, chemical, and microbiological water analysis. We test parameters such as pH, turbidity, total dissolved solids (TDS), hardness, and pathogen presence to ensure water supplies meet safety and processing requirements.</p>
+                </div>
+              </div>
+            </div>
+          </li>
+          <li class="service-item">
+            <button class="service-toggle" aria-expanded="false">
+              <span class="service-title-wrap">
+                <span class="service-num">04</span>
+                <span>Coagulants</span>
+              </span>
+              <span class="service-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
+              </span>
+            </button>
+            <div class="service-content">
+              <div class="service-content-inner">
+                <div class="service-detail">
+                  <img src="https://images.unsplash.com/photo-1565793298595-6a879b1d9492?auto=format&fit=crop&w=500&q=80" alt="Water clarification and treatment basins" loading="lazy">
+                  <p>Expert selection, supply, and dosing optimisation of water treatment coagulants and flocculants. We help industrial plants and municipal systems achieve rapid suspended solids removal, improved clarification, and lower chemical operating costs.</p>
+                </div>
+              </div>
+            </div>
+          </li>
+          <li class="service-item">
+            <button class="service-toggle" aria-expanded="false">
+              <span class="service-title-wrap">
+                <span class="service-num">05</span>
+                <span>Farm water disinfection</span>
+              </span>
+              <span class="service-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
+              </span>
+            </button>
+            <div class="service-content">
+              <div class="service-content-inner">
+                <div class="service-detail">
+                  <img src="https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&w=500&q=80" alt="Agricultural farmland and rural water supply" loading="lazy">
+                  <p>Robust sanitation and disinfection systems tailored for agricultural operations, livestock watering, crop irrigation, and dairy washdown hygiene. We design reliable chemical dosing and UV treatment setups to protect livestock health and product quality.</p>
+                </div>
+              </div>
+            </div>
+          </li>
+          <li class="service-item">
+            <button class="service-toggle" aria-expanded="false">
+              <span class="service-title-wrap">
+                <span class="service-num">06</span>
+                <span>Water audits and water usage reduction</span>
+              </span>
+              <span class="service-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
+              </span>
+            </button>
+            <div class="service-content">
+              <div class="service-content-inner">
+                <div class="service-detail">
+                  <img src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=500&q=80" alt="Engineering audit plans and resource efficiency analysis" loading="lazy">
+                  <p>Site-wide facility water balance assessments mapping every intake and discharge point. We identify hidden leaks, evaluate wastewater reuse potential, and implement targeted reduction strategies that lower both water bills and energy consumption.</p>
+                </div>
+              </div>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <section id="responsibility" class="responsibility">
+      <div class="wrap">
+        <span class="eyebrow">Stewardship</span>
+        <h2>Corporate responsibility</h2>
+        <div class="responsibility-grid">
+          <div class="resp-card">
+            <img src="https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?auto=format&fit=crop&w=900&q=80" alt="Clean river watershed and natural catchment" loading="lazy">
+            <div class="resp-body">
+              <h3>Water Conservation Initiatives</h3>
+              <p>We actively support practical water-saving initiatives that protect regional catchments and promote sustainable resource management across industry and agriculture.</p>
+            </div>
+          </div>
+          <div class="resp-card">
+            <img src="https://images.unsplash.com/photo-1581092580497-e0d23cbdf1dc?auto=format&fit=crop&w=900&q=80" alt="Engineers collaborating on technical training and STEM equipment" loading="lazy">
+            <div class="resp-body">
+              <h3>Community Science & Engineering</h3>
+              <p>We invest in community-interest science and engineering programs that build local technical literacy and inspire future trades and STEM practitioners.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact">
+      <div class="wrap contact">
+        <div>
+          <span class="eyebrow">Get In Touch</span>
+          <h2>Contact us</h2>
+          <p class="contact-lead">Tell us about your facility, equipment, or water supply requirements and our technical team will get back to you.</p>
+          <div class="direct-box">
+            <span>Direct Email</span>
+            <div class="copy-row">
+              <code id="email-text">info@lemub.example</code>
+              <button type="button" class="btn-small" id="copy-email">Copy address</button>
+            </div>
+          </div>
+        </div>
+        <form id="enquiry">
+          <label>
+            Your name
+            <input name="name" autocomplete="name" placeholder="Jane Doe" required>
+          </label>
+          <label>
+            Email address
+            <input name="email" type="email" autocomplete="email" placeholder="jane@company.com" required>
+          </label>
+          <label>
+            Area of enquiry
+            <select name="service">
+              <option value="Asset & equipment maintenance">Asset & equipment maintenance</option>
+              <option value="Equipment calibration">Equipment calibration</option>
+              <option value="Water testing & treatment">Water testing, coagulants & disinfection</option>
+              <option value="Water audit & usage reduction">Water audit & usage reduction</option>
+              <option value="Compliance, risk & general">Compliance, risk & general enquiry</option>
+            </select>
+          </label>
+          <label>
+            Message
+            <textarea name="message" placeholder="Briefly describe your site, equipment, or water testing needs..." required></textarea>
+          </label>
+          <button class="btn" type="submit">Send enquiry</button>
+          <p class="note">This opens your default email app with your details pre-filled.</p>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap">
+      <span>© <span id="yr">2026</span> Lemub Group Pty Ltd. All rights reserved.</span>
+      
+    </div>
+  </footer>
+
+  <script>
+    (function () {
+      var header = document.querySelector('.site-header');
+      var menu = document.getElementById('site-menu');
+      var menuBtn = document.getElementById('menu-toggle');
+      var mq = window.matchMedia('(min-width: 52rem)');
+
+      function setMenuOpen(open) {
+        header.classList.toggle('is-open', open);
+        menuBtn.setAttribute('aria-expanded', String(open));
+      }
+
+      menuBtn.addEventListener('click', function () {
+        var isOpen = header.classList.contains('is-open');
+        setMenuOpen(!isOpen);
+      });
+
+      menu.addEventListener('click', function (e) {
+        if (e.target.closest('a')) {
+          setMenuOpen(false);
+        }
+      });
+
+      document.addEventListener('click', function (e) {
+        if (!header.contains(e.target) && header.classList.contains('is-open')) {
+          setMenuOpen(false);
+        }
+      });
+
+      document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape' && header.classList.contains('is-open')) {
+          setMenuOpen(false);
+          menuBtn.focus();
+        }
+      });
+
+      mq.addEventListener('change', function () {
+        if (mq.matches) {
+          setMenuOpen(false);
+        }
+      });
+
+      /* Service Accordion Handler */
+      var accordions = document.querySelectorAll('.service-toggle');
+      accordions.forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          var expanded = btn.getAttribute('aria-expanded') === 'true';
+          btn.setAttribute('aria-expanded', String(!expanded));
+          var content = btn.nextElementSibling;
+          content.style.gridTemplateRows = expanded ? '0fr' : '1fr';
+        });
+      });
+
+      var links = [].slice.call(menu.querySelectorAll('a:not(.cta)'));
+      if ('IntersectionObserver' in window) {
+        var io = new IntersectionObserver(
+          function (entries) {
+            entries.forEach(function (entry) {
+              if (entry.isIntersecting) {
+                links.forEach(function (a) {
+                  var isCurrent = a.getAttribute('href') === '#' + entry.target.id;
+                  a.toggleAttribute('aria-current', isCurrent);
+                  if (isCurrent) {
+                    a.setAttribute('aria-current', 'true');
+                  }
+                });
+              }
+            });
+          },
+          { rootMargin: '-45% 0px -50% 0px' }
+        );
+
+        ['about', 'services', 'responsibility'].forEach(function (id) {
+          io.observe(document.getElementById(id));
+        });
+      }
+
+      var root = document.documentElement;
+      var tt = document.getElementById('theme-toggle');
+
+      function setTheme(theme, save) {
+        root.setAttribute('data-theme', theme);
+        tt.setAttribute('aria-pressed', String(theme === 'dark'));
+        tt.setAttribute('aria-label', theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode');
+
+        if (save) {
+          try {
+            localStorage.setItem('lemub-theme', theme);
+          } catch (e) {}
+        }
+      }
+
+      var saved = null;
+      try {
+        saved = localStorage.getItem('lemub-theme');
+      } catch (e) {}
+
+      setTheme(saved === 'dark' ? 'dark' : 'light', false);
+
+      tt.addEventListener('click', function () {
+        var nextTheme = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+        setTheme(nextTheme, true);
+      });
+
+      document.getElementById('yr').textContent = new Date().getFullYear();
+
+      var TO = 'info@lemub.example'; // Replace with Lemub's real email address
+      document.getElementById('email-text').textContent = TO;
+
+      var copyBtn = document.getElementById('copy-email');
+      copyBtn.addEventListener('click', function () {
+        if (navigator.clipboard) {
+          navigator.clipboard.writeText(TO).then(function () {
+            copyBtn.textContent = 'Copied!';
+            setTimeout(function () {
+              copyBtn.textContent = 'Copy address';
+            }, 2000);
+          });
+        }
+      });
+
+      document.getElementById('enquiry').addEventListener('submit', function (e) {
+        e.preventDefault();
+        var f = new FormData(e.target);
+        var subject = f.get('service') + ' — Enquiry from ' + f.get('name');
+        var body =
+          'Name: ' + f.get('name') +
+          '\nEmail: ' + f.get('email') +
+          '\nArea of Enquiry: ' + f.get('service') +
+          '\n\n' + f.get('message');
+
+        location.href =
+          'mailto:' +
+          TO +
+          '?subject=' +
+          encodeURIComponent(subject) +
+          '&body=' +
+          encodeURIComponent(body);
+      });
+    })();
+  </script>
+</body>
+</html>
