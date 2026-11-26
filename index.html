@@ -202,12 +202,12 @@
       flex-shrink: 0;
     }
 
-    /* Transparent logo: navy lettering would vanish on the dark header, so give it a light tile in dark mode only */
-    [data-theme="dark"] .logo-mark {
-      background: #fff;
-      border-radius: .5rem;
-      padding: .2rem .3rem;
-    }
+    /* Two transparent logo files: navy for light mode, pale for dark mode */
+    .logo-mark--dark { display: none; }
+
+    [data-theme="dark"] .logo-mark--light { display: none; }
+
+    [data-theme="dark"] .logo-mark--dark { display: block; }
 
     .logo-text {
       font: 400 1rem/1.05 var(--display);
@@ -420,9 +420,6 @@
     /* Footer logo */
     .footer-brand {
       display: inline-flex;
-      background: #fff;
-      border-radius: .5rem;
-      padding: .5rem .75rem;
     }
 
     .footer-brand img {
@@ -1028,7 +1025,8 @@
   <header class="site-header" id="top">
     <div class="wrap header-inner">
       <a class="logo" href="#top" aria-label="Lemub Group Pty Ltd, home">
-        <img class="logo-mark" src="lemub-mark.png" alt="" width="306" height="168" fetchpriority="high" decoding="async">
+        <img class="logo-mark logo-mark--light" src="lemub-mark.png" alt="" width="306" height="168" fetchpriority="high" decoding="async">
+        <img class="logo-mark logo-mark--dark" src="lemub-mark-dark.png" alt="" width="306" height="168" decoding="async">
         <span class="logo-text">Lemub Group<small>Building Solutions. Creating Value.</small></span>
       </a>
       <div class="hdr-actions">
@@ -1318,7 +1316,7 @@
   <footer>
     <div class="wrap">
       <a class="footer-brand" href="#top" aria-label="Lemub Group Pty Ltd, back to top">
-        <img src="lemub.jpeg" alt="Lemub Group Pty Ltd - Building Solutions. Creating Value." width="720" height="440" loading="lazy" decoding="async">
+        <img src="lemub-footer.png" alt="Lemub Group Pty Ltd - Building Solutions. Creating Value." width="720" height="440" loading="lazy" decoding="async">
       </a>
       <span>© <span id="yr">2026</span> Lemub Group Pty Ltd. All rights reserved.</span>
     </div>
