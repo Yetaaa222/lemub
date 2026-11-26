@@ -5,18 +5,18 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <title>Lemub Group Pty Ltd | Asset Maintenance, Water & Compliance</title>
   <meta name="description" content="Lemub Group maintains and optimises facility assets, tests and treats water, and advises on compliance and risk for dairy, agriculture, and industry.">
-  <meta name="theme-color" id="theme-color-meta" content="#F5F7FA">
+  <meta name="theme-color" id="theme-color-meta" content="#FFFFFF">
   <script>
-  (function () {
-    try {
-      if (localStorage.getItem('lemub-theme') === 'dark') {
-        document.documentElement.setAttribute('data-theme', 'dark');
-        var m = document.querySelector('meta[name="theme-color"]');
-        if (m) m.setAttribute('content', '#0B111E');
-      }
-    } catch (e) {}
-  })();
-</script>
+    (function () {
+      try {
+        if (localStorage.getItem('lemub-theme') === 'dark') {
+          document.documentElement.setAttribute('data-theme', 'dark');
+          var m = document.querySelector('meta[name="theme-color"]');
+          if (m) m.setAttribute('content', '#0B111E');
+        }
+      } catch (e) {}
+    })();
+  </script>
   <link rel="icon" href="favicon.ico" sizes="48x48">
   <link rel="icon" href="favicon-32.png" type="image/png" sizes="32x32">
   <link rel="apple-touch-icon" href="apple-touch-icon.png">
@@ -44,8 +44,6 @@
       --body: Inter, system-ui, -apple-system, "Segoe UI", Arial, sans-serif;
       color-scheme: light;
       box-sizing: border-box;
-      padding-top: env(safe-area-inset-top, 0px);
-      padding-bottom: env(safe-area-inset-bottom, 0px);
     }
 
     :root[data-theme="dark"] {
@@ -70,12 +68,17 @@
       scroll-padding-top: calc(5rem + env(safe-area-inset-top, 0px));
     }
 
+    html,
     body {
       margin: 0;
-      background: var(--bg);
+      background-color: var(--bg);
       color: var(--fg);
       font: 400 1.05rem/1.65 var(--body);
       -webkit-font-smoothing: antialiased;
+    }
+
+    body {
+      padding-bottom: env(safe-area-inset-bottom, 0px);
     }
 
     h1,
@@ -171,25 +174,17 @@
       --hdr-cta-fg: var(--navy);
     }
 
-    body::before {
-  content: "";
-  position: fixed;
-  inset: 0 0 auto;
-  height: env(safe-area-inset-top, 0px);
-  background: var(--hdr-solid);
-  z-index: 45;
-  transition: background .2s ease;
-}
-
     .site-header {
       position: sticky;
-      top: env(safe-area-inset-top, 0px);
+      top: 0;
+      padding-top: env(safe-area-inset-top, 0px);
       z-index: 40;
       background: var(--hdr-bg);
       backdrop-filter: blur(10px);
       border-bottom: 1px solid var(--line);
       box-shadow: 0 1px 12px rgba(15, 23, 42, 0.06);
       color: var(--hdr-fg);
+      transition: background .2s ease, color .2s ease;
     }
 
     .header-inner {
@@ -984,6 +979,7 @@
       background: var(--navy);
       color: var(--pale);
       padding-block: 2.25rem;
+      padding-bottom: calc(2.25rem + env(safe-area-inset-bottom, 0px));
       font-size: .92rem;
       border-top: 1px solid rgba(126, 150, 181, 0.2);
     }
@@ -1345,7 +1341,6 @@
       var tt = document.getElementById('theme-toggle');
       var themeMeta = document.querySelector('meta[name="theme-color"]');
 
-
       function setTheme(theme, save) {
         var isDark = theme === 'dark';
         root.setAttribute('data-theme', theme);
@@ -1353,7 +1348,7 @@
         tt.setAttribute('aria-label', isDark ? 'Switch to light mode' : 'Switch to dark mode');
 
         if (themeMeta) {
-          themeMeta.setAttribute('content', isDark ? '#0B111E' : '#F5F7FA');
+          themeMeta.setAttribute('content', isDark ? '#0B111E' : '#FFFFFF');
         }
 
         if (save) {
@@ -1433,21 +1428,6 @@
         });
       }
 
-      var root = document.documentElement;
-      var tt = document.getElementById('theme-toggle');
-
-      function setTheme(theme, save) {
-        root.setAttribute('data-theme', theme);
-        tt.setAttribute('aria-pressed', String(theme === 'dark'));
-        tt.setAttribute('aria-label', theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode');
-
-        if (save) {
-          try {
-            localStorage.setItem('lemub-theme', theme);
-          } catch (e) {}
-        }
-      }
-
       var saved = null;
       try {
         saved = localStorage.getItem('lemub-theme');
@@ -1483,9 +1463,13 @@
         var subject = f.get('service') + ' — Enquiry from ' + f.get('name');
         var body =
           'Name: ' + f.get('name') +
-          '\nEmail: ' + f.get('email') +
-          '\nArea of Enquiry: ' + f.get('service') +
-          '\n\n' + f.get('message');
+          '
+Email: ' + f.get('email') +
+          '
+Area of Enquiry: ' + f.get('service') +
+          '
+
+' + f.get('message');
 
         location.href =
           'mailto:' +
