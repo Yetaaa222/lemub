@@ -5,18 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <title>Lemub Group Pty Ltd | Asset Maintenance, Water & Compliance</title>
   <meta name="description" content="Lemub Group maintains and optimises facility assets, tests and treats water, and advises on compliance and risk for dairy, agriculture, and industry.">
-  <meta name="theme-color" id="theme-color-meta" content="#FFFFFF">
-  <script>
-    (function () {
-      try {
-        if (localStorage.getItem('lemub-theme') === 'dark') {
-          document.documentElement.setAttribute('data-theme', 'dark');
-          var m = document.querySelector('meta[name="theme-color"]');
-          if (m) m.setAttribute('content', '#0B111E');
-        }
-      } catch (e) {}
-    })();
-  </script>
   <link rel="icon" href="favicon.ico" sizes="48x48">
   <link rel="icon" href="favicon-32.png" type="image/png" sizes="32x32">
   <link rel="apple-touch-icon" href="apple-touch-icon.png">
@@ -44,6 +32,8 @@
       --body: Inter, system-ui, -apple-system, "Segoe UI", Arial, sans-serif;
       color-scheme: light;
       box-sizing: border-box;
+      padding-top: env(safe-area-inset-top, 0px);
+      padding-bottom: env(safe-area-inset-bottom, 0px);
     }
 
     :root[data-theme="dark"] {
@@ -68,17 +58,12 @@
       scroll-padding-top: calc(5rem + env(safe-area-inset-top, 0px));
     }
 
-    html,
     body {
       margin: 0;
-      background-color: var(--bg);
+      background: var(--bg);
       color: var(--fg);
       font: 400 1.05rem/1.65 var(--body);
       -webkit-font-smoothing: antialiased;
-    }
-
-    body {
-      padding-bottom: env(safe-area-inset-bottom, 0px);
     }
 
     h1,
@@ -174,17 +159,24 @@
       --hdr-cta-fg: var(--navy);
     }
 
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0 0 auto;
+      height: env(safe-area-inset-top, 0px);
+      background: var(--hdr-solid);
+      z-index: 40;
+    }
+
     .site-header {
       position: sticky;
-      top: 0;
-      padding-top: env(safe-area-inset-top, 0px);
+      top: env(safe-area-inset-top, 0px);
       z-index: 40;
       background: var(--hdr-bg);
       backdrop-filter: blur(10px);
       border-bottom: 1px solid var(--line);
       box-shadow: 0 1px 12px rgba(15, 23, 42, 0.06);
       color: var(--hdr-fg);
-      transition: background .2s ease, color .2s ease;
     }
 
     .header-inner {
@@ -979,7 +971,6 @@
       background: var(--navy);
       color: var(--pale);
       padding-block: 2.25rem;
-      padding-bottom: calc(2.25rem + env(safe-area-inset-bottom, 0px));
       font-size: .92rem;
       border-top: 1px solid rgba(126, 150, 181, 0.2);
     }
@@ -1287,7 +1278,7 @@
           <div class="direct-box">
             <span>Direct Email</span>
             <div class="copy-row">
-              <code id="email-text">info@lemub.au</code>
+              <code id="email-text">info@lemub.example</code>
               <button type="button" class="btn-small" id="copy-email">Copy address</button>
             </div>
           </div>
@@ -1337,83 +1328,41 @@
       var menu = document.getElementById('site-menu');
       var menuBtn = document.getElementById('menu-toggle');
       var mq = window.matchMedia('(min-width: 52rem)');
-      var root = document.documentElement;
-      var tt = document.getElementById('theme-toggle');
-      var themeMeta = document.querySelector('meta[name="theme-color"]');
-
-      function syncThemeColor(isDark) {
-        var color = isDark ? '#0B111E' : '#FFFFFF';
-        var head = document.head;
-        var existing = document.querySelectorAll('meta[name="theme-color"]');
-        existing.forEach(function (tag) {
-          tag.parentNode.removeChild(tag);
-        });
-        var meta = document.createElement('meta');
-        meta.name = 'theme-color';
-        meta.id = 'theme-color-meta';
-        meta.content = color;
-        if (head) {
-          head.appendChild(meta);
-        }
-        themeMeta = meta;
-      }
-
-      function setTheme(theme, save) {
-        var isDark = theme === 'dark';
-        root.setAttribute('data-theme', theme);
-        if (tt) {
-          tt.setAttribute('aria-pressed', String(isDark));
-          tt.setAttribute('aria-label', isDark ? 'Switch to light mode' : 'Switch to dark mode');
-        }
-        syncThemeColor(isDark);
-        if (save) {
-          try {
-            localStorage.setItem('lemub-theme', theme);
-          } catch (e) {}
-        }
-      }
 
       function setMenuOpen(open) {
-        if (!header || !menuBtn) return;
         header.classList.toggle('is-open', open);
         menuBtn.setAttribute('aria-expanded', String(open));
       }
 
-      if (menuBtn) {
-        menuBtn.addEventListener('click', function () {
-          var isOpen = header.classList.contains('is-open');
-          setMenuOpen(!isOpen);
-        });
-      }
+      menuBtn.addEventListener('click', function () {
+        var isOpen = header.classList.contains('is-open');
+        setMenuOpen(!isOpen);
+      });
 
-      if (menu) {
-        menu.addEventListener('click', function (e) {
-          if (e.target.closest('a')) {
-            setMenuOpen(false);
-          }
-        });
-      }
+      menu.addEventListener('click', function (e) {
+        if (e.target.closest('a')) {
+          setMenuOpen(false);
+        }
+      });
 
       document.addEventListener('click', function (e) {
-        if (header && !header.contains(e.target) && header.classList.contains('is-open')) {
+        if (!header.contains(e.target) && header.classList.contains('is-open')) {
           setMenuOpen(false);
         }
       });
 
       document.addEventListener('keydown', function (e) {
-        if (e.key === 'Escape' && header && header.classList.contains('is-open')) {
+        if (e.key === 'Escape' && header.classList.contains('is-open')) {
           setMenuOpen(false);
-          if (menuBtn) menuBtn.focus();
+          menuBtn.focus();
         }
       });
 
-      if (mq && mq.addEventListener) {
-        mq.addEventListener('change', function () {
-          if (mq.matches) {
-            setMenuOpen(false);
-          }
-        });
-      }
+      mq.addEventListener('change', function () {
+        if (mq.matches) {
+          setMenuOpen(false);
+        }
+      });
 
       /* Service Accordion Handler */
       var accordions = document.querySelectorAll('.service-toggle');
@@ -1422,14 +1371,12 @@
           var expanded = btn.getAttribute('aria-expanded') === 'true';
           btn.setAttribute('aria-expanded', String(!expanded));
           var content = btn.nextElementSibling;
-          if (content) {
-            content.style.gridTemplateRows = expanded ? '0fr' : '1fr';
-          }
+          content.style.gridTemplateRows = expanded ? '0fr' : '1fr';
         });
       });
 
-      var links = menu ? [].slice.call(menu.querySelectorAll('a:not(.cta)')) : [];
-      if ('IntersectionObserver' in window && links.length) {
+      var links = [].slice.call(menu.querySelectorAll('a:not(.cta)'));
+      if ('IntersectionObserver' in window) {
         var io = new IntersectionObserver(
           function (entries) {
             entries.forEach(function (entry) {
@@ -1448,9 +1395,23 @@
         );
 
         ['about', 'services', 'responsibility'].forEach(function (id) {
-          var el = document.getElementById(id);
-          if (el) io.observe(el);
+          io.observe(document.getElementById(id));
         });
+      }
+
+      var root = document.documentElement;
+      var tt = document.getElementById('theme-toggle');
+
+      function setTheme(theme, save) {
+        root.setAttribute('data-theme', theme);
+        tt.setAttribute('aria-pressed', String(theme === 'dark'));
+        tt.setAttribute('aria-label', theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode');
+
+        if (save) {
+          try {
+            localStorage.setItem('lemub-theme', theme);
+          } catch (e) {}
+        }
       }
 
       var saved = null;
@@ -1460,56 +1421,46 @@
 
       setTheme(saved === 'dark' ? 'dark' : 'light', false);
 
-      if (tt) {
-        tt.addEventListener('click', function () {
-          var currentTheme = root.getAttribute('data-theme');
-          var nextTheme = currentTheme === 'dark' ? 'light' : 'dark';
-          setTheme(nextTheme, true);
-        });
-      }
+      tt.addEventListener('click', function () {
+        var nextTheme = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+        setTheme(nextTheme, true);
+      });
 
-      var yrEl = document.getElementById('yr');
-      if (yrEl) yrEl.textContent = new Date().getFullYear();
+      document.getElementById('yr').textContent = new Date().getFullYear();
 
-      var TO = 'info@lemub.au';
-      var emailEl = document.getElementById('email-text');
-      if (emailEl) emailEl.textContent = TO;
+      var TO = 'info@lemub.example'; // Replace with Lemub's real email address
+      document.getElementById('email-text').textContent = TO;
 
       var copyBtn = document.getElementById('copy-email');
-      if (copyBtn) {
-        copyBtn.addEventListener('click', function () {
-          if (navigator.clipboard && navigator.clipboard.writeText) {
-            navigator.clipboard.writeText(TO).then(function () {
-              copyBtn.textContent = 'Copied!';
-              setTimeout(function () {
-                copyBtn.textContent = 'Copy address';
-              }, 2000);
-            });
-          }
-        });
-      }
+      copyBtn.addEventListener('click', function () {
+        if (navigator.clipboard) {
+          navigator.clipboard.writeText(TO).then(function () {
+            copyBtn.textContent = 'Copied!';
+            setTimeout(function () {
+              copyBtn.textContent = 'Copy address';
+            }, 2000);
+          });
+        }
+      });
 
-      var enquiryForm = document.getElementById('enquiry');
-      if (enquiryForm) {
-        enquiryForm.addEventListener('submit', function (e) {
-          e.preventDefault();
-          var f = new FormData(e.target);
-          var subject = f.get('service') + ' — Enquiry from ' + f.get('name');
-          var body =
-            'Name: ' + f.get('name') +
-            '\nEmail: ' + f.get('email') +
-            '\nArea of Enquiry: ' + f.get('service') +
-            '\n\n' + f.get('message');
+      document.getElementById('enquiry').addEventListener('submit', function (e) {
+        e.preventDefault();
+        var f = new FormData(e.target);
+        var subject = f.get('service') + ' — Enquiry from ' + f.get('name');
+        var body =
+          'Name: ' + f.get('name') +
+          '\nEmail: ' + f.get('email') +
+          '\nArea of Enquiry: ' + f.get('service') +
+          '\n\n' + f.get('message');
 
-          location.href =
-            'mailto:' +
-            TO +
-            '?subject=' +
-            encodeURIComponent(subject) +
-            '&body=' +
-            encodeURIComponent(body);
-        });
-      }
+        location.href =
+          'mailto:' +
+          TO +
+          '?subject=' +
+          encodeURIComponent(subject) +
+          '&body=' +
+          encodeURIComponent(body);
+      });
     })();
   </script>
 </body>
