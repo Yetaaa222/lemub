@@ -1341,6 +1341,23 @@
       var tt = document.getElementById('theme-toggle');
       var themeMeta = document.querySelector('meta[name="theme-color"]');
 
+      function syncThemeColor(isDark) {
+        var color = isDark ? '#0B111E' : '#FFFFFF';
+        var head = document.head;
+        var existing = document.querySelectorAll('meta[name="theme-color"]');
+        existing.forEach(function (tag) {
+          tag.parentNode.removeChild(tag);
+        });
+        var meta = document.createElement('meta');
+        meta.name = 'theme-color';
+        meta.id = 'theme-color-meta';
+        meta.content = color;
+        if (head) {
+          head.appendChild(meta);
+        }
+        themeMeta = meta;
+      }
+
       function setTheme(theme, save) {
         var isDark = theme === 'dark';
         root.setAttribute('data-theme', theme);
@@ -1348,9 +1365,7 @@
           tt.setAttribute('aria-pressed', String(isDark));
           tt.setAttribute('aria-label', isDark ? 'Switch to light mode' : 'Switch to dark mode');
         }
-        if (themeMeta) {
-          themeMeta.setAttribute('content', isDark ? '#0B111E' : '#FFFFFF');
-        }
+        syncThemeColor(isDark);
         if (save) {
           try {
             localStorage.setItem('lemub-theme', theme);
