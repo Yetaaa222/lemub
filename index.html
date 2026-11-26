@@ -5,10 +5,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <title>Lemub Group Pty Ltd | Asset Maintenance, Water & Compliance</title>
   <meta name="description" content="Lemub Group maintains and optimises facility assets, tests and treats water, and advises on compliance and risk for dairy, agriculture, and industry.">
+  <link rel="icon" href="favicon.ico" sizes="48x48">
+  <link rel="icon" href="favicon-32.png" type="image/png" sizes="32x32">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="icon" href="lemub-mark.png" sizes="48x48">
-<link rel="icon" href="lemub-mark.png" type="image/png" sizes="32x32">
-<link rel="apple-touch-icon" href="apple-touch-icon.png">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
@@ -187,7 +187,7 @@
       gap: .5rem;
     }
 
-    . {
+    .logo {
       display: flex;
       align-items: center;
       gap: .65rem;
@@ -195,14 +195,21 @@
       text-decoration: none;
       min-width: 0;
     }
+
     .logo-mark {
-  height: 2.5rem;
-  width: auto;
-  flex-shrink: 0;
-}
+      height: 2.5rem;
+      width: auto;
+      flex-shrink: 0;
+    }
 
+    /* Transparent logo: navy lettering would vanish on the dark header, so give it a light tile in dark mode only */
+    [data-theme="dark"] .logo-mark {
+      background: #fff;
+      border-radius: .5rem;
+      padding: .2rem .3rem;
+    }
 
-    .-text {
+    .logo-text {
       font: 400 1rem/1.05 var(--display);
       letter-spacing: .01em;
       white-space: nowrap;
@@ -210,8 +217,7 @@
       text-overflow: ellipsis;
     }
 
-
-    .-text small {
+    .logo-text small {
       display: none;
       margin-top: .3rem;
       font: 500 .68rem var(--body);
@@ -220,7 +226,7 @@
     }
 
     @media (min-width: 30rem) {
-      .-mark { height: 2.75rem; }
+      .logo-mark { height: 2.75rem; }
       .logo-text { font-size: 1.1rem; }
     }
 
@@ -876,7 +882,7 @@
       color: var(--fg);
     }
 
-    .btn- {
+    .btn-small {
       padding: .4rem .8rem;
       font-size: .82rem;
       border-radius: 3px;
@@ -1023,7 +1029,7 @@
     <div class="wrap header-inner">
       <a class="logo" href="#top" aria-label="Lemub Group Pty Ltd, home">
         <img class="logo-mark" src="lemub-mark.png" alt="" width="306" height="168" fetchpriority="high" decoding="async">
-        <span class="logo-text"Lemub Group<small>Building Solutions. Creating Value.</small></span>
+        <span class="logo-text">Lemub Group<small>Building Solutions. Creating Value.</small></span>
       </a>
       <div class="hdr-actions">
         <button class="theme-toggle" type="button" id="theme-toggle" aria-label="Switch to dark mode" aria-pressed="false">
