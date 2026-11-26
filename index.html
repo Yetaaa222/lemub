@@ -1344,13 +1344,13 @@
       function setTheme(theme, save) {
         var isDark = theme === 'dark';
         root.setAttribute('data-theme', theme);
-        tt.setAttribute('aria-pressed', String(isDark));
-        tt.setAttribute('aria-label', isDark ? 'Switch to light mode' : 'Switch to dark mode');
-
+        if (tt) {
+          tt.setAttribute('aria-pressed', String(isDark));
+          tt.setAttribute('aria-label', isDark ? 'Switch to light mode' : 'Switch to dark mode');
+        }
         if (themeMeta) {
           themeMeta.setAttribute('content', isDark ? '#0B111E' : '#FFFFFF');
         }
-
         if (save) {
           try {
             localStorage.setItem('lemub-theme', theme);
@@ -1359,39 +1359,46 @@
       }
 
       function setMenuOpen(open) {
+        if (!header || !menuBtn) return;
         header.classList.toggle('is-open', open);
         menuBtn.setAttribute('aria-expanded', String(open));
       }
 
-      menuBtn.addEventListener('click', function () {
-        var isOpen = header.classList.contains('is-open');
-        setMenuOpen(!isOpen);
-      });
+      if (menuBtn) {
+        menuBtn.addEventListener('click', function () {
+          var isOpen = header.classList.contains('is-open');
+          setMenuOpen(!isOpen);
+        });
+      }
 
-      menu.addEventListener('click', function (e) {
-        if (e.target.closest('a')) {
-          setMenuOpen(false);
-        }
-      });
+      if (menu) {
+        menu.addEventListener('click', function (e) {
+          if (e.target.closest('a')) {
+            setMenuOpen(false);
+          }
+        });
+      }
 
       document.addEventListener('click', function (e) {
-        if (!header.contains(e.target) && header.classList.contains('is-open')) {
+        if (header && !header.contains(e.target) && header.classList.contains('is-open')) {
           setMenuOpen(false);
         }
       });
 
       document.addEventListener('keydown', function (e) {
-        if (e.key === 'Escape' && header.classList.contains('is-open')) {
+        if (e.key === 'Escape' && header && header.classList.contains('is-open')) {
           setMenuOpen(false);
-          menuBtn.focus();
+          if (menuBtn) menuBtn.focus();
         }
       });
 
-      mq.addEventListener('change', function () {
-        if (mq.matches) {
-          setMenuOpen(false);
-        }
-      });
+      if (mq && mq.addEventListener) {
+        mq.addEventListener('change', function () {
+          if (mq.matches) {
+            setMenuOpen(false);
+          }
+        });
+      }
 
       /* Service Accordion Handler */
       var accordions = document.querySelectorAll('.service-toggle');
@@ -1400,12 +1407,14 @@
           var expanded = btn.getAttribute('aria-expanded') === 'true';
           btn.setAttribute('aria-expanded', String(!expanded));
           var content = btn.nextElementSibling;
-          content.style.gridTemplateRows = expanded ? '0fr' : '1fr';
+          if (content) {
+            content.style.gridTemplateRows = expanded ? '0fr' : '1fr';
+          }
         });
       });
 
-      var links = [].slice.call(menu.querySelectorAll('a:not(.cta)'));
-      if ('IntersectionObserver' in window) {
+      var links = menu ? [].slice.call(menu.querySelectorAll('a:not(.cta)')) : [];
+      if ('IntersectionObserver' in window && links.length) {
         var io = new IntersectionObserver(
           function (entries) {
             entries.forEach(function (entry) {
@@ -1424,7 +1433,8 @@
         );
 
         ['about', 'services', 'responsibility'].forEach(function (id) {
-          io.observe(document.getElementById(id));
+          var el = document.getElementById(id);
+          if (el) io.observe(el);
         });
       }
 
@@ -1443,45 +1453,48 @@
         });
       }
 
-      document.getElementById('yr').textContent = new Date().getFullYear();
+      var yrEl = document.getElementById('yr');
+      if (yrEl) yrEl.textContent = new Date().getFullYear();
 
-      var TO = 'info@lemub.au'; // Replace with Lemub's real email address
-      document.getElementById('email-text').textContent = TO;
+      var TO = 'info@lemub.au';
+      var emailEl = document.getElementById('email-text');
+      if (emailEl) emailEl.textContent = TO;
 
       var copyBtn = document.getElementById('copy-email');
-      copyBtn.addEventListener('click', function () {
-        if (navigator.clipboard) {
-          navigator.clipboard.writeText(TO).then(function () {
-            copyBtn.textContent = 'Copied!';
-            setTimeout(function () {
-              copyBtn.textContent = 'Copy address';
-            }, 2000);
-          });
-        }
-      });
+      if (copyBtn) {
+        copyBtn.addEventListener('click', function () {
+          if (navigator.clipboard && navigator.clipboard.writeText) {
+            navigator.clipboard.writeText(TO).then(function () {
+              copyBtn.textContent = 'Copied!';
+              setTimeout(function () {
+                copyBtn.textContent = 'Copy address';
+              }, 2000);
+            });
+          }
+        });
+      }
 
-      document.getElementById('enquiry').addEventListener('submit', function (e) {
-        e.preventDefault();
-        var f = new FormData(e.target);
-        var subject = f.get('service') + ' — Enquiry from ' + f.get('name');
-        var body =
-          'Name: ' + f.get('name') +
-          '
-Email: ' + f.get('email') +
-          '
-Area of Enquiry: ' + f.get('service') +
-          '
+      var enquiryForm = document.getElementById('enquiry');
+      if (enquiryForm) {
+        enquiryForm.addEventListener('submit', function (e) {
+          e.preventDefault();
+          var f = new FormData(e.target);
+          var subject = f.get('service') + ' — Enquiry from ' + f.get('name');
+          var body =
+            'Name: ' + f.get('name') +
+            '\nEmail: ' + f.get('email') +
+            '\nArea of Enquiry: ' + f.get('service') +
+            '\n\n' + f.get('message');
 
-' + f.get('message');
-
-        location.href =
-          'mailto:' +
-          TO +
-          '?subject=' +
-          encodeURIComponent(subject) +
-          '&body=' +
-          encodeURIComponent(body);
-      });
+          location.href =
+            'mailto:' +
+            TO +
+            '?subject=' +
+            encodeURIComponent(subject) +
+            '&body=' +
+            encodeURIComponent(body);
+        });
+      }
     })();
   </script>
 </body>
