@@ -1435,10 +1435,13 @@
 
       setTheme(saved === 'dark' ? 'dark' : 'light', false);
 
-      tt.addEventListener('click', function () {
-        var nextTheme = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
-        setTheme(nextTheme, true);
-      });
+      if (tt) {
+        tt.addEventListener('click', function () {
+          var currentTheme = root.getAttribute('data-theme');
+          var nextTheme = currentTheme === 'dark' ? 'light' : 'dark';
+          setTheme(nextTheme, true);
+        });
+      }
 
       document.getElementById('yr').textContent = new Date().getFullYear();
 
